@@ -29,6 +29,7 @@
     "prettier"
   ],
   "rules": {
+    "indent": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "react/jsx-filename-extension": [
@@ -48,7 +49,6 @@
         "tsx": "never"
       }
     ],
-    "prettier/prettier": "error",
     "camelcase": "off",
     "@typescript-eslint/explicit-function-return-type": [
       "error",
