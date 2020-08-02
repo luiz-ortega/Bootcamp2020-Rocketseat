@@ -15,7 +15,7 @@ export default createGlobalStyle`
         text-rendering: optmizeLegitibility;
     }
 
-    body , input, button {
+    body, input, button {
         font-family: 'Roboto Slab', serif;
         font-size: 16px;
     }
