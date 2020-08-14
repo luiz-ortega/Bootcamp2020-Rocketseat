@@ -119,13 +119,10 @@ const SignIn: React.FC = () => {
               />
             </Form>
 
-
             <Button onPress={() => formRef.current?.submitForm()}>Cadastrar</Button>
           </Container>
         </ScrollView>
-
       </KeyboardAvoidingView>
-
 
       <BackToSignIn onPress={() => navigation.goBack()}>
         <Icon name="arrow-left" size={20} color="#fff" />
