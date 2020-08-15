@@ -67,7 +67,7 @@ const SignIn: React.FC = () => {
         )
       }
     },
-    []
+    [navigation]
   );
 
   return (

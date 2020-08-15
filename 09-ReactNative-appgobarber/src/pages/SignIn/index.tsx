@@ -8,6 +8,8 @@ import * as Yup from 'yup'
 import getValidationErrors from '../../utils/getValidationErrors'
 import api from '../../services/api';
 
+import {useAuth} from '../../hooks/auth'
+
 import logoImg from '../../assets/logo.png';
 
 import Input from '../../components/Input';
@@ -21,9 +23,12 @@ interface SignInFormData {
 }
 
 const SignIn: React.FC = () => {
+  const { signIn, user } = useAuth()
   const navigation = useNavigation()
   const formRef = useRef<FormHandles>(null);
   const passwordInputRef = useRef<TextInput>(null)
+
+  console.log(user);
 
 
   const handleSignIn = useCallback(
@@ -42,12 +47,12 @@ const SignIn: React.FC = () => {
           abortEarly: false,
         });
 
-        // await signIn({
-        //   email: data.email,
-        //   password: data.password,
-        // });
+        await signIn({
+          email: data.email,
+          password: data.password,
+        });
 
-        // history.push('/dashboard');
+
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
