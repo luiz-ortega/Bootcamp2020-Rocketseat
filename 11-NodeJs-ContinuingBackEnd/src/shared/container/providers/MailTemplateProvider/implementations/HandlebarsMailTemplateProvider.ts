@@ -1,4 +1,4 @@
-import handlebars from 'handlebars';
+import Handlebars from 'handlebars';
 import fs from 'fs';
 
 import IMailTemplateProvider from '../models/IMailTemplateProvider';
@@ -13,7 +13,7 @@ class HandlebarsMailTemplateProvider implements IMailTemplateProvider {
             encoding: 'utf-8',
         });
 
-        const parseTemplate = handlebars.compile(templateFileContent);
+        const parseTemplate = Handlebars.compile(templateFileContent);
 
         return parseTemplate(variables);
     }
