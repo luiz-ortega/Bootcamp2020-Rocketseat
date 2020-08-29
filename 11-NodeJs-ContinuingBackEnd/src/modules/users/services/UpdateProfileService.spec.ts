@@ -109,4 +109,16 @@ describe('UpdateUserAvatar', () => {
             }),
         ).rejects.toBeInstanceOf(AppError);
     });
+
+    it('should not be able to update the profile of a non-existing user', async () => {
+        expect(
+            updateProfile.execute({
+                user_id: 'non-existing-user-id',
+                name: 'John Trê',
+                email: 'email2@email.com',
+                old_password: 'wrong-old-password',
+                password: '123123',
+            }),
+        ).rejects.toBeInstanceOf(AppError);
+    });
 });
