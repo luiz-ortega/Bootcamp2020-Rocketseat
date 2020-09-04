@@ -1,5 +1,6 @@
 import nodemailer, { Transporter } from 'nodemailer';
 import aws from 'aws-sdk';
+import mailConfig from '@config/mail';
 import { injectable, inject } from 'tsyringe';
 
 import IMailProvider from '../models/IMailProvider';
@@ -18,6 +19,7 @@ export default class SESMailProvider implements IMailProvider {
         this.client = nodemailer.createTransport({
             SES: new aws.SES({
                 apiVersion: '2010-12-01',
+                region: process.env.AWS_DEFAULT_REGION,
             }),
         });
     }
@@ -28,10 +30,12 @@ export default class SESMailProvider implements IMailProvider {
         subject,
         templateData,
     }: ISendMailDTO): Promise<void> {
+        const { name, email } = mailConfig.defaults.from;
+
         await this.client.sendMail({
             from: {
-                name: from?.name || 'Equipe GoBarber',
-                address: from?.email || 'equipe@gobarber.com.br',
+                name: from?.name || name,
+                address: from?.email || email,
             },
             to: {
                 name: to.name,
