@@ -15,6 +15,9 @@ import UserTokensRepository from '@modules/users/infra/typeorm/repositories/User
 import INotificationsRepository from '@modules/notifications/repositories/INotificationsRepository';
 import NotificationRepository from '@modules/notifications/infra/typeorm/repositories/NotificationRepository';
 
+import ICacheProvider from './providers/CacheProvider/model/ICacheProvider';
+import RedisCacheProvider from './providers/CacheProvider/implementations/RedisCacheProvider';
+
 container.registerSingleton<IAppointmentsRepository>(
     'AppointmentsRepository',
     AppointmentsRepository,
@@ -33,4 +36,9 @@ container.registerSingleton<IUserTokensRepository>(
 container.registerSingleton<INotificationsRepository>(
     'NotificationRepository',
     NotificationRepository,
+);
+
+container.registerSingleton<ICacheProvider>(
+    'CacheProvider',
+    RedisCacheProvider,
 );
