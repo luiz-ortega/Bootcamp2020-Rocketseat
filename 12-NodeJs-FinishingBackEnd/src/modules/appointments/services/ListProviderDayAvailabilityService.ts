@@ -23,7 +23,7 @@ class ListProviderDayAvailabilityService {
     constructor(
         @inject('AppointmentsRepository')
         private appointmentsRepository: IAppointmentRepository,
-    ) { }
+    ) {}
 
     public async execute({
         provider_id,
