@@ -8,7 +8,7 @@ import { useAuth } from '../../hooks/auth';
 import logoImg from '../../assets/logo.svg';
 
 const Dashboard: React.FC = () => {
-  const { signOut } = useAuth();
+  const { signOut, user } = useAuth();
 
   return (
     <Container>
@@ -17,13 +17,10 @@ const Dashboard: React.FC = () => {
           <img src={logoImg} alt="GoBarber" />
 
           <Profile>
-            <img
-              src="https://avatars1.githubusercontent.com/u/31256653?s=460&u=4f439431fc5e3b9d9603b3fbd8651748710d9eb5&v=4"
-              alt="Luiz Ortega"
-            />
+            <img src={user.avatar_url} alt={user.name} />
             <div>
               <span>Bem-vindo,</span>
-              <strong>Luiz Ortega</strong>
+              <strong>{user.name}</strong>
             </div>
           </Profile>
 
