@@ -37,7 +37,7 @@ class User {
     @Expose({ name: 'avatar_url' })
     getAvatar_url(): string | null {
         if (!this.avatar) {
-            return null;
+            return 'null';
         }
 
         switch (uploadConfig.driver) {
@@ -46,7 +46,7 @@ class User {
             case 's3':
                 return `https://${uploadConfig.config.aws.bucket}.s3.amazonaws.com/${this.avatar}`;
             default:
-                return null;
+                return 'null';
         }
     }
 }
