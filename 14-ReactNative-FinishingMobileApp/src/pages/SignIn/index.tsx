@@ -27,7 +27,7 @@ const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const passwordInputRef = useRef<TextInput>(null)
 
-  console.log(user);
+  // console.log(user);
 
 
   const handleSignIn = useCallback(
@@ -50,6 +50,7 @@ const SignIn: React.FC = () => {
           email: data.email,
           password: data.password,
         });
+
 
 
       } catch (err) {
