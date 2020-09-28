@@ -35,3 +35,7 @@ export const UserAvatar = styled.Image`
   border-radius: 28px;
 `;
 
+export const ProvidersList = styled.FlatList`
+
+`;
+
