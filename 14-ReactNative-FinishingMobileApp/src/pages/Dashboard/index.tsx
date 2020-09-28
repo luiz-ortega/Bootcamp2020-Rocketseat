@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Container, Header, HeaderTitle, UserName, ProfileButton, UserAvatar, ProvidersList} from './styles'
+import { Container, Header, HeaderTitle, UserName, ProfileButton, UserAvatar, ProvidersList } from './styles'
 import { useAuth } from '../../hooks/auth'
 import { useNavigation } from '@react-navigation/native';
 import api from '../../services/api';
@@ -41,9 +41,11 @@ const Dashboard: React.FC = () => {
         </ProfileButton>
 
       </Header>
-      <ProvidersList>
-
-      </ProvidersList>
+      <ProvidersList
+        data={providers}
+        renderItem={({ item }) => <UserName>{item.name}</UserName>}
+        keyExtractor={provider => provider.id}
+      />
     </Container>
   )
 };
