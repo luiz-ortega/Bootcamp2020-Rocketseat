@@ -22,12 +22,14 @@ const CreateAppointment: React.FC = () => {
   return (
     <Container>
       <Header>
-        <BackButton onPress={() => { }}>
+        <BackButton onPress={navigateBack}>
           <Icon name="chevron-left" size={24} color="#999591" />
-          <HeaderTitle>Cabeleireiros</HeaderTitle>
-
-          <UserAvatar source={{ uri: user.avatar_url }} />
         </BackButton>
+
+        <HeaderTitle>Cabeleireiros</HeaderTitle>
+
+        <UserAvatar source={{ uri: user.avatar_url }} />
+
       </Header>
     </Container>
   )

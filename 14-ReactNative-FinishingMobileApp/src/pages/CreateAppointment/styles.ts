@@ -7,7 +7,7 @@ export const Container = styled.View`
 
 export const Header = styled.View`
   padding: 24px;
-  padding-top: ${getStatusBarHeight() + 24}px;
+  /* padding-top:  ${getStatusBarHeight() + 24}px; */
   background: #28262e;
 
   flex-direction: row;
@@ -15,13 +15,14 @@ export const Header = styled.View`
   align-items: center;
 `;
 
-export const BackButton = styled.TouchableOpacity``;
+export const BackButton = styled.TouchableOpacity`
+`;
 
 export const HeaderTitle = styled.Text`
-color: #f5ede8;
-font-family: 'RobotoSlab-Medium';
-font-size: 20px;
-margin-left: 16px;
+  color: #f5ede8;
+  font-family: 'RobotoSlab-Medium';
+  font-size: 20px;
+  margin-left: 16px;
 `;
 
 export const UserAvatar = styled.Image`
