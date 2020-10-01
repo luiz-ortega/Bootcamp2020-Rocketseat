@@ -18,7 +18,7 @@ export const Container = styled.View`
 
 export const Header = styled.View`
   padding: 24px;
-  /* padding-top:  ${getStatusBarHeight() + 24}px; */
+  padding-top:  ${getStatusBarHeight() + 24}px;
   background: #28262e;
 
   flex-direction: row;
@@ -73,8 +73,16 @@ export const ProviderName = styled.Text<ProviderNameProps>`
   color: ${(props) => (props.selected ? '#232129' : '#f4ede8')};
 `;
 
-export const Title = styled.Text``;
+export const Title = styled.Text`
+  font-family: 'RobotoSlab-Medium';
+  color: #f4ede8;
+  font-size: 24px;
+  margin: 0 24px 24px;
 
-export const Calendar = styled.View``;
+`;
+
+export const Calendar = styled.View`
+
+`;
 
 
