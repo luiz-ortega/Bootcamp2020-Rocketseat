@@ -26,6 +26,8 @@ export interface Provider {
   avatar_url: string;
 }
 
+const avatarPlaceHolder = 'https://api.adorable.io/avatars/285/abott@adorable.png'
+
 const Dashboard: React.FC = () => {
   const [providers, setProviders] = useState<Provider[]>([]);
 
@@ -69,7 +71,7 @@ const Dashboard: React.FC = () => {
         }
         renderItem={({ item: provider }) => (
           <ProviderContainer onPress={() => navigateToCreateAppointment(provider.id)}>
-            <ProviderAvatar source={{ uri: provider.avatar_url }} />
+            <ProviderAvatar source={{ uri: provider.avatar_url !== 'null' ? provider.avatar_url : avatarPlaceHolder }} />
 
             <ProviderInfo>
               <ProviderName>{provider.name}</ProviderName>
