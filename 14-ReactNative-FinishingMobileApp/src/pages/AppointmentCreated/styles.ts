@@ -20,6 +20,7 @@ export const Description = styled.Text`
   font-family: 'RobotoSlab-Regular';
   font-size: 18px;
   color: #999591;
+  text-align: center;
   margin-top: 16px;
 `;
 
