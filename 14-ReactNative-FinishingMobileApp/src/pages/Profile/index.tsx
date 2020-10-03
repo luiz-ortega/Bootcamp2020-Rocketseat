@@ -1,5 +1,5 @@
 import React, { useCallback, useRef } from 'react';
-import { Image, View, KeyboardAvoidingView, Platform, ScrollView, TextInput, Alert } from 'react-native'
+import { Image, KeyboardAvoidingView, Platform, ScrollView, TextInput, Alert } from 'react-native'
 import Icon from 'react-native-vector-icons/Feather'
 import { useNavigation } from '@react-navigation/native';
 import { Form } from '@unform/mobile';
@@ -17,10 +17,12 @@ import {
 } from './styles';
 import { useAuth } from '../../hooks/auth';
 
-interface SignUpFormData {
+interface ProfileFormData {
   name: string;
   email: string;
   password: string;
+  old_password: string;
+  password_confirmation: string;
 }
 
 const Profile: React.FC = () => {
@@ -32,30 +34,66 @@ const Profile: React.FC = () => {
 
   const navigation = useNavigation();
 
-  const { user } = useAuth()
+  const { user, updateUser } = useAuth()
 
   const handleSignUp = useCallback(
-    async (data: SignUpFormData) => {
+    async (data: ProfileFormData) => {
       try {
         formRef.current?.setErrors({});
 
+
         const schema = Yup.object().shape({
-          name: Yup.string().required('Senha obrigatória'),
+          name: Yup.string().required('Nome obrigatório'),
           email: Yup.string()
             .required('Email obrigatório')
             .email('Digite um e-mail válido'),
-          password: Yup.string().required('Senha obrigatória'),
+          old_password: Yup.string(),
+          password: Yup.string().when('old_password', {
+            is: val => !!val,
+            then: Yup.string()
+              .required('Campo obrigatório')
+              .min(6, 'No mínimo 6 dígitos'),
+            otherwise: Yup.string(),
+          }),
+          password_confirmation: Yup.string().when('old_password', {
+            is: val => !!val,
+            then: Yup.string()
+              .required('Campo obrigatório')
+              .min(6, 'No mínimo 6 dígitos'),
+            otherwise: Yup.string(),
+          }),
         });
 
         await schema.validate(data, {
           abortEarly: false,
         });
 
-        await api.post('/users', data);
+        const {
+          name,
+          email,
+          old_password,
+          password,
+          password_confirmation,
+        } = data;
+
+        const formData = {
+          name,
+          email,
+          ...(old_password
+            ? {
+              old_password,
+              password,
+              password_confirmation,
+            }
+            : {}),
+        };
+
+        const response = await api.put('/profile', formData);
+
+        updateUser(response.data);
 
         Alert.alert(
-          'Cadastro realizado com sucesso',
-          'Você já pode fazer login na aplicação.'
+          'Perfil atualizado com sucesso!'
         )
 
         navigation.goBack();
@@ -69,8 +107,8 @@ const Profile: React.FC = () => {
         }
 
         Alert.alert(
-          'Erro na autenticação',
-          'Ocorreu um erro ao fazer login, cheque as credenciais.'
+          'Erro na atualização do perfil',
+          'Ocorreu um erro ao atualizar seu perfil, tente novamente.'
         )
       }
     },
@@ -80,7 +118,6 @@ const Profile: React.FC = () => {
   const handleGoBack = useCallback(() => {
     navigation.goBack()
   }, [navigation])
-
 
   return (
     <>
@@ -101,7 +138,7 @@ const Profile: React.FC = () => {
 
             <Title>Meu perfil</Title>
 
-            <Form ref={formRef} onSubmit={handleSignUp}>
+            <Form initialData={{ name: user.name, email: user.email }} ref={formRef} onSubmit={handleSignUp}>
 
               <Input
                 autoCapitalize="words"
@@ -137,7 +174,7 @@ const Profile: React.FC = () => {
                     passwordInputRef.current?.focus()
                   }}
                   textContentType="newPassword"
-                  name="oldPassword"
+                  name="old_password"
                   icon="lock"
                   placeholder="Senha antiga"
                 />
@@ -149,7 +186,7 @@ const Profile: React.FC = () => {
                     confirmPasswordInputRef.current?.focus()
                   }}
                   textContentType="newPassword"
-                  name="newPassword"
+                  name="password"
                   icon="lock"
                   placeholder="Nova senha"
                 />
