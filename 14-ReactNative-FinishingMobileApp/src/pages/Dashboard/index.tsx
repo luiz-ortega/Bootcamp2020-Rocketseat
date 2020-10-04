@@ -19,6 +19,7 @@ import { useAuth } from '../../hooks/auth'
 import Icon from 'react-native-vector-icons/Feather'
 import { useNavigation } from '@react-navigation/native';
 import api from '../../services/api';
+import avatarPlaceHolder from '../../assets/placeholder.png';
 
 export interface Provider {
   id: string;
@@ -26,7 +27,7 @@ export interface Provider {
   avatar_url: string;
 }
 
-const avatarPlaceHolder = 'https://api.adorable.io/avatars/285/abott@adorable.png'
+// const avatarPlaceHolder = 'https://api.adorable.io/avatars/285/abott@adorable.png'
 
 const Dashboard: React.FC = () => {
   const [providers, setProviders] = useState<Provider[]>([]);
@@ -62,15 +63,18 @@ const Dashboard: React.FC = () => {
         </ProfileButton>
 
       </Header>
+
       <ProvidersList
         data={providers}
         keyExtractor={provider => provider.id}
         ListHeaderComponent={
           <ProvidersListTitle>Cabeleireiros</ProvidersListTitle>
         }
+
         renderItem={({ item: provider }) => (
           <ProviderContainer onPress={() => navigateToCreateAppointment(provider.id)}>
-            <ProviderAvatar source={{ uri: provider.avatar_url !== 'null' ? provider.avatar_url : avatarPlaceHolder }} />
+
+            <ProviderAvatar source={provider.avatar_url !== 'null' ? { uri: provider.avatar_url } : avatarPlaceHolder} />
 
             <ProviderInfo>
               <ProviderName>{provider.name}</ProviderName>
