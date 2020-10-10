@@ -30,21 +30,40 @@ describe('Inout component', () => {
       <Input name="email" placeholder="E-mail" />,
     );
 
-    const inpiutElement = getByPlaceholderText('E-mail');
+    const inputElement = getByPlaceholderText('E-mail');
     const containerElement = getByTestId('input-container');
 
-    fireEvent.focus(inpiutElement);
+    fireEvent.focus(inputElement);
 
     await waitFor(() => {
       expect(containerElement).toHaveStyle('border-color: #ff9000;');
       expect(containerElement).toHaveStyle('color: #ff9000;');
     });
 
-    fireEvent.blur(inpiutElement);
+    fireEvent.blur(inputElement);
 
     await waitFor(() => {
       expect(containerElement).not.toHaveStyle('border-color: #ff9000;');
       expect(containerElement).not.toHaveStyle('color: #ff9000;');
     });
+  });
+
+  it('should keep border highlight when input is filled', async () => {
+    const { getByPlaceholderText, getByTestId } = render(
+      <Input name="email" placeholder="E-mail" />,
+    );
+
+    const inputElement = getByPlaceholderText('E-mail');
+    const containerElement = getByTestId('input-container');
+
+    fireEvent.change(inputElement, {
+      target: { value: 'johndoe@example.com.br' },
+    });
+
+    fireEvent.blur(inputElement);
+
+    await waitFor(() =>
+      expect(containerElement).toHaveStyle('color: #ff9000;'),
+    );
   });
 });
