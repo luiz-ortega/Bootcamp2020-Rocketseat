@@ -25,7 +25,7 @@ describe('Inout component', () => {
     expect(getByPlaceholderText('E-mail')).toBeTruthy();
   });
 
-  it('should render highlighted on input focus', () => {
+  it('should render highlighted on input focus', async () => {
     const { getByPlaceholderText, getByTestId } = render(
       <Input name="email" placeholder="E-mail" />,
     );
@@ -35,9 +35,16 @@ describe('Inout component', () => {
 
     fireEvent.focus(inpiutElement);
 
-    waitFor(() => {
+    await waitFor(() => {
       expect(containerElement).toHaveStyle('border-color: #ff9000;');
       expect(containerElement).toHaveStyle('color: #ff9000;');
+    });
+
+    fireEvent.blur(inpiutElement);
+
+    await waitFor(() => {
+      expect(containerElement).not.toHaveStyle('border-color: #ff9000;');
+      expect(containerElement).not.toHaveStyle('color: #ff9000;');
     });
   });
 });
