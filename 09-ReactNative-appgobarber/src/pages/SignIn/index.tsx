@@ -6,7 +6,6 @@ import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup'
 import getValidationErrors from '../../utils/getValidationErrors'
-import api from '../../services/api';
 
 import {useAuth} from '../../hooks/auth'
 

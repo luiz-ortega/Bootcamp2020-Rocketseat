@@ -74,10 +74,10 @@ const Profile: React.FC = () => {
           email,
           ...(old_password
             ? {
-                old_password,
-                password,
-                password_confirmation,
-              }
+              old_password,
+              password,
+              password_confirmation,
+            }
             : {}),
         };
 
